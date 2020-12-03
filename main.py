@@ -5,6 +5,7 @@ import gspread
 driver = webdriver.Chrome(executable_path=r"chrome_path") # Replace my path with where your chromedriver is stored
 insta_usrname = YOUR_USERNAME
 insta_password = YOUR_PASSWORD
+spreadsheet_name = YOUR SPREADSHEET_NAME
 
 def accessInstagram():
     # Going to instagram's website then waiting 3 seconds before continuing
@@ -35,25 +36,22 @@ def accessInstagram():
     button.click()
 
 
-spreadsheet_name = YOUR SPREADSHEET_NAME
-
-
 # Finds a workbook by name and open the first sheet
 def access_sheet():
     client = gspread.oauth()
     return client.open(spreadsheet_name).sheet1
 
 
+notification_class = "_41V_T.Sapc9.Igw0E.IwRSH.eGOV_._4EzTm"  # Class for the blue dot that appears for unread notification
+
+
 # Finds the first box with an unread notification and clicks it, waits 1 second
-notification_class = "_41V_T.Sapc9.Igw0E.IwRSH.eGOV_._4EzTm"
-
-
 def findDMs(sheet, i):
     print("Processing DMs")
     time.sleep(5)
     while True:
         try:
-            notif = driver.find_element_by_class_name(notification_class)  # Gets list of all unread notifications
+            notif = driver.find_element_by_class_name(notification_class)  # Gets next unread notification
         except:
             print("No notifications left")
             break
@@ -77,12 +75,12 @@ def add_to_sheet(sheet, message, row):
 
 def main():
     start_row = 1  # The row you want to start on minus one
-    sheet = access_sheet()
-    accessInstagram()
+    sheet = access_sheet()  # Initiates access to spreadsheet
+    accessInstagram()  # Initiates access to Instagram
 
     while True:
         findDMs(sheet, start_row)
-        time.sleep(120)
+        time.sleep(120)  # Waits 120 seconds before checking DMs again
 
 
 if __name__ == '__main__':
