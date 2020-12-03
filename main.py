@@ -2,7 +2,7 @@ from selenium import webdriver
 import time
 import gspread
 
-driver = webdriver.Chrome(executable_path=r"/Users/simoncovington/PycharmProjects/SMC/chromedriver") # Replace my path with where your chromedriver is stored
+driver = webdriver.Chrome(executable_path=r"chrome_path") # Replace my path with where your chromedriver is stored
 insta_usrname = YOUR_USERNAME
 insta_password = YOUR_PASSWORD
 
